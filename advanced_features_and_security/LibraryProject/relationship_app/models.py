@@ -4,17 +4,13 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 class UserProfile(models.Model):
-    ROLE_CHOICES = [
-        ('Admin', 'Admin'),
-        ('Librarian', 'Librarian'),
-        ('Member', 'Member'),
-    ]
-    # Use settings.AUTH_USER_MODEL instead of User
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='Member')
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='relationship_profile'  # <-- unique reverse accessor
+    )
+    # other fields...
 
-    def __str__(self):
-        return f"{self.user.username} ({self.role})"
 
 
 # Automatically create UserProfile when a new User is created
