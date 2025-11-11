@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'bookshelf',
     'relationship_app',
     'accounts',
+    'csp',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'csp.middleware.CSPMiddleware',
 ]
 
 ROOT_URLCONF = 'LibraryProject.urls'
@@ -129,3 +131,33 @@ LOGIN_REDIRECT_URL = "list_books"
 LOGOUT_REDIRECT_URL = "login"
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+# SECURITY: Disable debug in production
+DEBUG = False  # Always False in production
+
+# Browser security
+SECURE_BROWSER_XSS_FILTER = True          # Enables XSS filtering in browsers
+SECURE_CONTENT_TYPE_NOSNIFF = True        # Prevents MIME type sniffing
+X_FRAME_OPTIONS = 'DENY'                  # Prevent clickjacking
+
+# Cookies over HTTPS
+CSRF_COOKIE_SECURE = True                 # CSRF cookie only over HTTPS
+SESSION_COOKIE_SECURE = True              # Session cookie only over HTTPS
+
+# Optional: Force HTTPS
+SECURE_SSL_REDIRECT = True                # Redirect HTTP -> HTTPS
+SECURE_HSTS_SECONDS = 31536000            # HTTP Strict Transport Security (1 year)
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
+# CSRF settings
+CSRF_COOKIE_HTTPONLY = True               # Makes CSRF cookie inaccessible to JavaScript
+
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_SCRIPT_SRC = ("'self'",)
+CSP_STYLE_SRC = ("'self'", 'https://fonts.googleapis.com')
+CSP_FONT_SRC = ("'self'", 'https://fonts.gstatic.com')
+
+# CSRF and session cookies secure
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True

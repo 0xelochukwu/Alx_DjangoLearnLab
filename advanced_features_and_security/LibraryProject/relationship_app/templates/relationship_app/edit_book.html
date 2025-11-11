@@ -2,14 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Edit Book</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Book - {{ form.instance.title }}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <h1>Edit Book</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Save Changes</button>
-    </form>
+    <main>
+        <h1>Edit Book: "{{ form.instance.title }}"</h1>
+
+        <form method="post" action="">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" aria-label="Save changes to book">Save Changes</button>
+        </form>
+
+        <a href="{% url 'list_books' %}" role="button">Cancel</a>
+    </main>
 </body>
 </html>
