@@ -149,6 +149,8 @@ SECURE_SSL_REDIRECT = True                # Redirect HTTP -> HTTPS
 SECURE_HSTS_SECONDS = 31536000            # HTTP Strict Transport Security (1 year)
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 
 # CSRF settings
 CSRF_COOKIE_HTTPONLY = True               # Makes CSRF cookie inaccessible to JavaScript
